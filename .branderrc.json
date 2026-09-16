@@ -1,0 +1,381 @@
+{
+  "name": "tmplat",
+  "homepage": "https://tmplat.com",
+  "tasks": [
+    {
+      "task": "clean",
+      "input": {
+        "files": [
+          "@(icon|wordmark|logo|banner)/**/*.ico",
+          "@(icon|wordmark|logo|banner)/**/*.min.svg",
+          "@(icon|wordmark|logo|banner)/**/*.png"
+        ]
+      }
+    },
+    {
+      "task": "convert",
+      "input": {
+        "files": "@(icon|wordmark|logo)/**/*.svg"
+      },
+      "output": {
+        "format": "png"
+      },
+      "options": {
+        "sizes": [
+          16,
+          19,
+          24,
+          32,
+          36,
+          48,
+          64,
+          70,
+          72,
+          76,
+          96,
+          120,
+          128,
+          144,
+          150,
+          152,
+          167,
+          168,
+          180,
+          192,
+          250,
+          256,
+          300,
+          310,
+          512,
+          2800
+        ]
+      }
+    },
+    {
+      "task": "convert",
+      "input": {
+        "files": "banner/**/*.svg"
+      },
+      "output": {
+        "format": "png"
+      }
+    },
+    {
+      "task": "package",
+      "input": {
+        "files": [
+          "icon/**/*-16x16.png",
+          "icon/**/*-32x32.png",
+          "icon/**/*-48x48.png",
+          "icon/**/*-256x256.png"
+        ]
+      },
+      "output": {
+        "files": "<%= file.base(true).replace(/-(16|32|48|256)x\\1$/, '') %>.ico"
+      },
+      "options": {
+        "groupBy": "<%= file.dir %>",
+        "sizes": [
+          16,
+          32,
+          48,
+          256
+        ]
+      }
+    },
+    {
+      "task": "optimize",
+      "input": {
+        "files": "@(icon|wordmark|logo|banner)/**/*.svg"
+      }
+    }
+  ],
+  "docs": [
+    {
+      "doc": "README.md",
+      "dir": ".",
+      "title": "tmplat branding",
+      "sections": [
+        {
+          "type": "template",
+          "content": "This repository contains branding assets and guidelines for [<%= config.title %>](<%= config.homepage %>), a Chrome extension that quickly and easily copies info on the current page using a simple and unique template system."
+        },
+        {
+          "type": "toc",
+          "docs": [
+            "guidelines.md",
+            "colors.md",
+            "assets.md"
+          ],
+          "minDepth": 0,
+          "maxDepth": 1
+        },
+        {
+          "title": "The Mark",
+          "type": "template",
+          "content": [
+            "**Stack** &mdash; two offset rounded tiles with the `t` monogram on the front tile: the \"copy this page\" idea, which is exactly what the extension does. The wordmark uses a geometric, monolinear lowercase construction (round caps/joins, single stroke weight) that matches the mark."
+          ]
+        },
+        {
+          "title": "Using Assets",
+          "type": "template",
+          "content": [
+            "All assets are owned by the <%= config.title %> project and intended for use in representing it, however, if you wish to use these assets elsewhere, simply ask by raising an issue, detailing who/what/when/where/why you intend to use them.",
+            "",
+            "The best way to get in touch is by [raising an issue](https://github.com/tmplat-extension/tmplat-branding/issues/new)."
+          ]
+        },
+        {
+          "title": "Generating Assets",
+          "type": "template",
+          "content": [
+            "The assets and documentation within this repository are generated using [Brander](https://github.com/airmrcr/brander) based on our `.branderrc.json` configuration file.",
+            "",
+            "To get started, first clone the repository:",
+            "",
+            "```bash",
+            "git clone <%= config.repository.url %> && cd <%= config.repository.name %>",
+            "```",
+            "",
+            "Then install all of the necessary dependencies:",
+            "",
+            "```bash",
+            "npm install",
+            "```",
+            "",
+            "Now you can easily generate all assets and documentation after making whatever changes you want to the configuration file or asset sources:",
+            "",
+            "```bash",
+            "npm start",
+            "```",
+            "",
+            "If successful, it should end with \"Done!\"."
+          ]
+        }
+      ]
+    },
+    {
+      "doc": "assets.md",
+      "title": "Assets",
+      "sections": [
+        {
+          "type": "template",
+          "content": "This document contains references to all assets that are available to be used to represent the <%= config.title %> brand across all spaces."
+        },
+        {
+          "type": "toc",
+          "maxDepth": 1
+        },
+        {
+          "title": "Icons",
+          "type": "asset-feature",
+          "dir": "icon/**/*/",
+          "preview": "!(*.min).svg",
+          "files": [
+            "*.ico",
+            "*.png",
+            [ "!(*.min).svg", "*.min.svg" ]
+          ],
+          "sortBy": [ "<%= files[0].file.type %>", "asc" ],
+          "titles": {
+            "tmplat-icon.svg": "Base",
+            "tmplat-icon-mono.svg": "Base, Mono",
+            "tmplat-icon-mono-inverse.svg": "Base, Mono, Inverse",
+            "tmplat-icon-toolbar.svg": "Base, Toolbar",
+            "tmplat-icon-toolbar-inverse.svg": "Base, Toolbar, Inverse",
+            "tmplat-icon-small.svg": "Base, Small",
+            "tmplat-icon-micro.svg": "Base, Micro"
+          }
+        },
+        {
+          "title": "Wordmarks",
+          "type": "asset-feature",
+          "dir": "wordmark/**/*/",
+          "preview": "!(*.min).svg",
+          "files": [
+            "*.png",
+            [ "!(*.min).svg", "*.min.svg" ]
+          ],
+          "sortBy": [ "<%= files[0].file.type %>", "asc" ],
+          "titles": {
+            "tmplat-wordmark.svg": "Base",
+            "tmplat-wordmark-inverse.svg": "Base, Inverse"
+          }
+        },
+        {
+          "title": "Logos",
+          "type": "asset-feature",
+          "dir": "logo/**/*/",
+          "preview": "!(*.min).svg",
+          "files": [
+            "*.png",
+            [ "!(*.min).svg", "*.min.svg" ]
+          ],
+          "sortBy": [ "<%= files[0].file.type %>", "asc" ],
+          "titles": {
+            "tmplat-logo.svg": "Base",
+            "tmplat-logo-inverse.svg": "Base, Inverse"
+          }
+        },
+        {
+          "title": "Banners",
+          "type": "asset-feature",
+          "dir": "banner/**/*/",
+          "preview": "!(*.min).svg",
+          "files": [
+            "*.png",
+            [ "!(*.min).svg", "*.min.svg" ]
+          ],
+          "sortBy": [ "<%= files[0].file.type %>", "asc" ],
+          "titles": {
+            "tmplat-banner-marquee.svg": "Marquee, 1400x560 (Chrome Web Store)",
+            "tmplat-banner-large.svg": "Large, 920x680 (Chrome Web Store)",
+            "tmplat-banner-small.svg": "Small, 440x280 (Chrome Web Store)"
+          }
+        }
+      ]
+    },
+    {
+      "doc": "colors.md",
+      "title": "Colors",
+      "sections": [
+        {
+          "type": "template",
+          "content": "This document contains the colors that are to be used when representing the <%= config.title %> brand."
+        },
+        { "type": "toc" },
+        {
+          "title": "Palette",
+          "type": "template",
+          "content": "The following colors are recommended to be used:"
+        },
+        {
+          "type": "color-table",
+          "colors": [
+            {
+              "name": "Ink",
+              "format": "hex",
+              "value": "#151A24"
+            },
+            {
+              "name": "Ink Soft",
+              "format": "hex",
+              "value": "#4A5468"
+            },
+            {
+              "name": "Paper",
+              "format": "hex",
+              "value": "#FFFFFF"
+            },
+            {
+              "name": "Gradient Start",
+              "format": "hex",
+              "value": "#FF8A3D"
+            },
+            {
+              "name": "Gradient End",
+              "format": "hex",
+              "value": "#F5544E"
+            },
+            {
+              "name": "Solid Fallback",
+              "format": "hex",
+              "value": "#FF7A3D"
+            }
+          ],
+          "columns": [
+            {
+              "header": "Color",
+              "content": "<%= color.name %>"
+            },
+            {
+              "header": "Hex",
+              "content": "`<%= color.hex %>`"
+            },
+            {
+              "header": "RGB",
+              "content": "<%= color.rgb.join(', ') %>"
+            },
+            {
+              "header": "CMYK",
+              "content": "<%= color.cmyk.join(', ') %>"
+            }
+          ]
+        },
+        {
+          "type": "template",
+          "content": [
+            "The gradient (`Gradient Start` &rarr; `Gradient End`) is used for the icon tile and banners, and is a warm nod to the legacy brown of the original \"Template\" brand. `Solid Fallback` should be used wherever a gradient isn't available."
+          ]
+        }
+      ]
+    },
+    {
+      "doc": "guidelines.md",
+      "title": "Guidelines",
+      "sections": [
+        {
+          "type": "template",
+          "content": "This document contains guidelines to be followed when representing the <%= config.title %> brand."
+        },
+        { "type": "toc" },
+        {
+          "type": "template",
+          "title": "Fonts",
+          "content": [
+            "The wordmark is not set in a typeface &mdash; it's a bespoke, geometric, monolinear construction (round caps/joins, single stroke weight) drawn as vector paths, so it should never be recreated with a font. Use the `wordmark` assets directly instead.",
+            "",
+            "Where live text is required alongside the mark, such as banner taglines, the following fonts are recommended:"
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Type",
+            "Primary Font",
+            "Fallback Fonts"
+          ],
+          "rows": [
+            [
+              "Sans-serif",
+              "[Inter](https://fonts.google.com/specimen/Inter)",
+              "Helvetica Neue, Arial, sans-serif"
+            ]
+          ]
+        },
+        {
+          "type": "template",
+          "content": [
+            "Convert any live text to outlines before handing an SVG anywhere the font isn't guaranteed to be available; the exported PNGs are unaffected."
+          ]
+        },
+        {
+          "type": "template",
+          "title": "Notes & Caveats",
+          "content": [
+            "* **The mark is stroked, not outlined.** If you scale it non-uniformly, or convert to outlines in another tool, check `stroke-width` still resolves as expected. For a fully self-contained file, run \"stroke to path\" before handing off.",
+            "* **The toolbar variant exists for a reason.** The full-detail mark goes mushy below ~32px; use the `icon-stack-toolbar` variant (or the tiled `small` / `micro` variants) rather than scaling the base icon down.",
+            "* **Banner PNGs should be exported as 24-bit RGB with no alpha channel** &mdash; that's what the Chrome Web Store requires for promotional images."
+          ]
+        }
+      ]
+    }
+  ],
+  "options": {
+    "lineSeparator": "lf",
+    "assets": {
+      "url": "https://raw.githack.com/<%= config.repository.user %>/<%= config.repository.name %>/<%= config.repository.branch %>/<%= file %>"
+    },
+    "docs": {
+      "footer": {
+        "type": "template",
+        "content": [
+          "---",
+          "",
+          "Copyright © tmplat"
+        ]
+      }
+    }
+  }
+}

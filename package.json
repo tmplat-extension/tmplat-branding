@@ -1,0 +1,36 @@
+{
+  "name": "@tmplat-extension/branding",
+  "description": "Branding assets and guidelines for tmplat",
+  "homepage": "https://github.com/tmplat-extension/tmplat-branding",
+  "bugs": {
+    "url": "https://github.com/tmplat-extension/tmplat-branding/issues"
+  },
+  "author": {
+    "name": "airmrcr",
+    "url": "https://github.com/airmrcr"
+  },
+  "license": "UNLICENSED",
+  "keywords": [
+    "tmplat",
+    "branding"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tmplat-extension/tmplat-branding.git"
+  },
+  "dependencies": {
+    "brander": "^0.4.1",
+    "sharp": "^0.32.5"
+  },
+  "overrides": {
+    "cheerio": "1.0.0-rc.12"
+  },
+  "scripts": {
+    "start": "brander && node scripts/flatten-banners.js"
+  },
+  "private": true,
+  "allowScripts": {
+    "sharp@0.32.6": true,
+    "puppeteer@13.7.0": true
+  }
+}
